@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unknxwn.studio/schemas/project-1.0.0.json",
+  "title": "UNKNXWN Studios Project",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "projectId",
+    "title",
+    "studio",
+    "createdAtUtc",
+    "status",
+    "episode",
+    "continuity",
+    "shots",
+    "media"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "projectId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "studio": {
+      "const": "UNKNXWN Studios"
+    },
+    "createdAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "development",
+        "preproduction",
+        "production",
+        "postproduction",
+        "complete",
+        "archived"
+      ]
+    },
+    "episode": {
+      "type": "object",
+      "required": [
+        "number",
+        "title",
+        "targetDurationSeconds",
+        "frameRate",
+        "resolution"
+      ],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targetDurationSeconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "frameRate": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "resolution": {
+          "type": "string",
+          "pattern": "^[0-9]{3,5}x[0-9]{3,5}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "continuity": {
+      "type": "object",
+      "required": [
+        "characters",
+        "locations",
+        "wardrobeSets",
+        "props"
+      ],
+      "properties": {
+        "characters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "wardrobeSets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "props": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "shotId",
+          "sceneId",
+          "description",
+          "durationSeconds"
+        ],
+        "properties": {
+          "shotId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sceneId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "durationSeconds": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "characters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "location": {
+            "type": "string"
+          },
+          "camera": {
+            "type": "string"
+          },
+          "generationStatus": {
+            "enum": [
+              "planned",
+              "queued",
+              "generating",
+              "review",
+              "approved",
+              "failed"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "media": {
+      "type": "object",
+      "required": [
+        "source",
+        "renders",
+        "exports"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "renders": {
+          "type": "string"
+        },
+        "exports": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
